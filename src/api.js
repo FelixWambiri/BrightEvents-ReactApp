@@ -1,5 +1,7 @@
 import axios from 'axios';
+import fetch from "./utils/fetchinga"
 
+const headers = localStorage.getItem('brighteventstoken');
 // Create axios instance so as to use interceptors
 const instance = axios.create({
     headers : {
@@ -27,6 +29,8 @@ export default{
         addEvent: data => instance.post("/events",data)
     },
     events:{
-        fetchAll: () => instance.get('/my_events').then(res => res.data.events)
+        // fetchAll: () => instance.get('/my_events').then(res => res.data.events)
+        fetchAll: () => fetch("GET",'http://localhost:5000/api/my_events', headers).then(res => res.events).catch(error=>console.log("the error is ", error)),
+        delete: (id) => fetch("DELETE",`http://localhost:5000/api/events/${id}`, headers).then(res => res.events).catch(error=>console.log("the error is ", error)),
     }
 }
