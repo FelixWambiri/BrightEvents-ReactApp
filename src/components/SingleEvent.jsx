@@ -24,6 +24,7 @@ export default (props)=>{
                                     22 Friends
                                 </a>
                             </div>
+                            <button type="button">Delete</button>
                         </div>
     )
 }
