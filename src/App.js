@@ -9,18 +9,22 @@ import ForgotPasswordPage from './components/pages/ForgotPasswordPage';
 import ResetPasswordPage from './components/pages/ResetPasswordPage';
 import SignupPage from './components/pages/SignupPage';
 import NewEventPage from './components/pages/NewEventPage';
+import AllEventsPage from './components/pages/AllEventsPage';
+import ReservationsDisplayPage from './components/pages/ReservationsPage'
 import UserRoute from './components/routes/UserRoute';
 import GuestRoute from './components/routes/GuestRoute';
 import TopNavigation from './components/navigation/TopNavigation';
 import {connect} from 'react-redux';
-
+import EditPage from './components/pages/EditPage';
+import Rsvps from './components/pages/Rsvps';
+// import "./assets/bootstrap-grid.min.css"
 // React redux connect has issues with react route and to resolve this we use location on the routes
 class App extends React.Component{
   render(){
     const {location, isAuthenticated} = this.props;
     return(
       <div className='ui container '>
-      {isAuthenticated && <TopNavigation/>} 
+      {<TopNavigation loggedIn={isAuthenticated}/>} 
       <Switch>
         <Route location = {location } path='/' exact component={HomePage} />
         <GuestRoute location = {location } path='/login' exact component={LoginPage} />
@@ -29,6 +33,10 @@ class App extends React.Component{
         <GuestRoute location = {location } path='/reset_password/:token' exact component={ResetPasswordPage} />
         <UserRoute location = {location } path='/dashboard' exact component={DashboardPage} />
         <UserRoute location = {location } path='/events/new' exact component={NewEventPage} />
+        <UserRoute location = {location } path='/events/edit/:id' exact component={EditPage} />
+        <Route location = {location } path='/events' exact component={AllEventsPage} />
+        <UserRoute location = {location } path='/event/:id/rsvp' exact component={Rsvps} />
+        <GuestRoute location = {location} path='/confirm/:token' exact component={ResetPasswordPage}/>
         {/* <Route component={NotFound} /> */}
       </Switch>
       </div>
