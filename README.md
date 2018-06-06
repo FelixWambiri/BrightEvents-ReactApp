@@ -1,3 +1,4 @@
+ [![Build Status](https://travis-ci.org/FelixWambiri/BrightEventsReact.svg?branch=ft-crud)](https://travis-ci.org/FelixWambiri/BrightEventsReact)
  # Bright_events_react
  This is an application that provides a platform for users to create, post and manage events.
 
