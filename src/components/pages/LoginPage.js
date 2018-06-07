@@ -3,7 +3,6 @@ import LoginForm from '../forms/LoginForm';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {login} from '../../actions/auth';
-import {Link} from 'react-router-dom';
 
 class LoginPage extends React.Component{
   // Login thunk action which we pass data to it and it returns a promise and if everything is ok we redirect to the homepage.
@@ -15,7 +14,6 @@ class LoginPage extends React.Component{
       <div>
         <h1>Login page</h1>
         <LoginForm submit={this.submit}/>
-        <Link to = "/forgot_password">Forgot Password?</Link>
       </div>
     ); 
   }

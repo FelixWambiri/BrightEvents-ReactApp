@@ -1,18 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Form,Button} from 'semantic-ui-react';
+import {Form,Button, Grid, Segment} from 'semantic-ui-react';
 import InlineError from '../messages/InlineError';
 
 class ResetPasswordForm extends React.Component{
     state = {
         data : {
-            token: this.state.token,
+            token: '',
             password: '',
             passwordConfirmation: ''
         },
         loading : false,
         errors : {} 
     };
+
+    componentDidMount = () => {
+      this.setState({...this.state, data: { ...this.state.data,token: this.props.token } })
+    }
     onChange = e =>
         this.setState({...this.state, data: { ...this.state.data,[e.target.name]: e.target.value } }); 
 
@@ -38,31 +42,35 @@ class ResetPasswordForm extends React.Component{
     render(){
         const {errors, data, loading } = this.state;
         return(
-            <Form onSubmit ={this.onSubmit} loading={loading}>
-                <Form.Field errors={!!errors.password}>
-                    <label htmlFor="password">password</label>
-                    <input 
-                        type="password" 
-                        id="password"
-                        name="password"
-                        placeholder="enter your password"
-                        value={data.password}
-                        onChange={this.onChange}/>
-                    {errors.password && <InlineError text={errors.password} />}
-                </Form.Field>
-                <Form.Field errors={!!errors.passwordConfirmation}>
-                    <label htmlFor="passwordConfirmation">password</label>
-                    <input 
-                        type="password" 
-                        id="password"
-                        name="password"
-                        placeholder="type it again"
-                        value={data.passwordConfirmation}
-                        onChange={this.onChange}/>
-                    {errors.passwordConfirmation && <InlineError text={errors.passwordConfirmation} />}
-                </Form.Field>
-                <Button primary>Reset</Button>
-            </Form>
+            <Grid centered >
+                <Grid.Column width={8}>
+                    <Segment >
+                        <Form  onSubmit ={this.onSubmit} loading={loading}>
+                            <Form.Field errors={errors?!!errors.password:{}}>
+                                <label htmlFor="password">password</label>
+                                <input 
+                                    type="password" 
+                                    id="password"
+                                    name="password"
+                                    placeholder="enter your password"
+                                    value={data.password}
+                                    onChange={this.onChange}/>
+                            </Form.Field>
+                            <Form.Field errors={errors?!!errors.passwordConfirmation:{}}>
+                                <label htmlFor="passwordConfirmation">password</label>
+                                <input 
+                                    type="password" 
+                                    id="password"
+                                    name="passwordConfirmation"
+                                    placeholder="type it again"
+                                    value={data.passwordConfirmation}
+                                    onChange={this.onChange}/>
+                            </Form.Field>
+                            <Button primary>Reset</Button>
+                        </Form>
+                    </Segment>
+                </Grid.Column>
+            </Grid>
         );
     }
 }

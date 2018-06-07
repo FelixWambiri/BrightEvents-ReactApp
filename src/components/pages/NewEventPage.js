@@ -1,5 +1,5 @@
 import React from 'react';
-import {Segment} from 'semantic-ui-react';
+import {Segment, Header, Icon, Grid} from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import SearchEventForm from '../forms/SearchEventForm';
@@ -11,10 +11,17 @@ class NewEventPage extends React.Component{
     render(){
         return(
             <div>
-                <Segment>
-                    <h1>Add a new event </h1>
-                    <EventForm submit={this.submit}/>
-                </Segment>
+                <Grid centered>
+                    <Grid.Column width={8}>
+                        <Segment>
+                            <Header as='h2' textAlign='center'>
+                                <Icon name='plus square' />
+                                <Header.Content>Add your new Event</Header.Content>
+                            </Header>
+                            </Segment>
+                    </Grid.Column>
+                </Grid>
+                <EventForm submit={this.submit}/>
             </div>
         );
     }

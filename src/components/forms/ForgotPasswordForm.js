@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Form,Button, Message} from 'semantic-ui-react';
+import {Form,Button, Message, Grid, Segment} from 'semantic-ui-react';
 import isEmail from 'validator/lib/isEmail';
 import InlineError from '../messages/InlineError';
-// import ForgotPasswordPage from '../pages/ForgotPasswordPage';
 
 class ForgotPasswordForm extends React.Component{
     state = {
@@ -36,25 +35,36 @@ class ForgotPasswordForm extends React.Component{
     };
     render(){
         const {errors, data, loading} = this.state;
+        const styles ={
+            root:{
+                marginTop:"15%"
+            }
+        }
         return(
-            <Form onSubmit={this.onSubmit} loading={loading}>
-            {errors.Warning && <Message negative>
-            <Message.Header>Something went wrong</Message.Header>
-            <p>{errors.Warning}</p>
-            </Message>}
-            <Form.Field errors={!!errors.email}>
-                <label htmlFor="email">email</label>
-                <input 
-                    type="email" 
-                    id="email"
-                    name="email"
-                    placeholder="example@example.com"
-                    value={data.email}
-                    onChange={this.onChange}/>
-                {errors.email && <InlineError text={errors.email} />}
-            </Form.Field>
-            <Button primary>Forgot Password</Button>
-            </Form>
+            <Grid centered styles={styles.root}>
+                <Grid.Column width={8}>
+                    <Segment>
+                        <Form onSubmit={this.onSubmit} loading={loading}>
+                            {errors.Warning && <Message negative>
+                            <Message.Header>Something went wrong</Message.Header>
+                            <p>{errors.Warning}</p>
+                            </Message>}
+                            <Form.Field errors={!!errors.email}>
+                                <label htmlFor="email">email</label>
+                                <input 
+                                    type="email" 
+                                    id="email"
+                                    name="email"
+                                    placeholder="example@example.com"
+                                    value={data.email}
+                                    onChange={this.onChange}/>
+                                {errors.email && <InlineError text={errors.email} />}
+                            </Form.Field>
+                            <Button primary>Reset Password</Button>
+                        </Form>
+                    </Segment>
+                </Grid.Column>
+            </Grid>
         );
     }
 }

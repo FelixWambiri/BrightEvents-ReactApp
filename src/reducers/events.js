@@ -1,19 +1,18 @@
-import {createSelector} from 'reselect';
-import {EVENTS_FETCHED} from '../types';
+import { EVENTS_FETCHED, EVENT_DELETED, ALL_EVENTS_FETCHED, RESERVATION_MADE, SEARCH_RESULTS } from '../types';
 
 
-export default function events(state = {}, action = {}){
-    switch(action.type){
-        case EVENTS_FETCHED:
-            return {...state, ...action.data}
-        default:
-            return state;
-    }
+export default function events(events = [], action = {}) {
+  switch (action.type) {
+    case EVENTS_FETCHED:
+      return action.data;
+    case ALL_EVENTS_FETCHED:
+      return action.data;
+    case EVENT_DELETED:
+      return events.filter(event => event.id !== action.id);
+    case SEARCH_RESULTS:
+      return action.data;
+    default:
+      return events;
+  }
 }
-// Selectors
-export const eventsSelector = state => state.events;
 
-// second selector will convert our books into an array
-export const allEventsSelector = createSelector(eventsSelector, eventsHash => 
-    Object.values(eventsHash)
-);
