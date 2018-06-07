@@ -9,11 +9,14 @@ import AllEventsCard from '../AllEventsCard';
 import SearchEventForm from '../forms/SearchEventForm';
 import { searchEvents} from '../../actions/events';
 import { Message,Grid,Card,Image, Pagination } from 'semantic-ui-react';
+import FlashMessage from 'react-flash-message';
 
 class AllEventsPage extends React.Component{
     constructor(props){
     super(props)
     this.state = {
+        message:'',
+        error:'',
         pagination:{
             active:3,
             total:10
@@ -23,11 +26,20 @@ class AllEventsPage extends React.Component{
         queryError:''
     }
     this.doSearch = this.doSearch.bind(this)
+    this.showError = this.showError.bind(this)
+    this.makeRSVP = this.makeRSVP.bind(this)
   }
     componentDidMount = () => {
+        this.setState({error:'',message:''},()=>this.setState({message:this.props.message}))
         this.props.fetchAllEvents().then(()=>{
             this.setState({originalEvents:this.props.events,events:this.props.events})
         }).catch(error=>console.log("the error idf",error));
+    }
+    makeRSVP(id){
+       return this.props.makeReservation(id).then(()=>{
+            this.setState({error:'',message:''},()=>this.setState({message:this.props.message}))
+        })
+        
     }
     doSearch(query){
         this.props.searchEvents(query).then(res=>{
@@ -43,6 +55,14 @@ class AllEventsPage extends React.Component{
             }
         }).catch(error=>console.log("the search error ", error))
     }
+    showError(error){
+        if(this.state.error){
+            this.setState({error:''},()=>this.setState({error:error}))
+        }else {
+            this.setState({error:error})
+        }
+        
+    }
     render(){
         console.log("the state is now ", this.state)
         const {isLoading,deleteEvent,user,makeReservation, searchEvents} = this.props
@@ -52,23 +72,35 @@ class AllEventsPage extends React.Component{
             return <Loader/>
         }
 
-
-
         return(
         <div>
+            
             <SearchEventForm onSearch={this.doSearch}/>
             {
                 this.state.queryError &&
                 <Message warning>{this.state.queryError}</Message>
             }
+            {
+                this.state.error && 
+                <FlashMessage duration={3000}>
+                <Message error>
+                    {this.state.error}
+                    </Message></FlashMessage>
+            }
+            {
+                this.state.message && 
+                <FlashMessage duration={3000}>
+                <Message success>
+                    {this.state.message}
+                    </Message></FlashMessage>
+            }
+           
             <div className="ui cards">
             {
                 events.length > 0 &&
-                events.map((event,i) =><AllEventsCard   makeReservation={makeReservation} key={i} user={user} event={event}/>)
+                events.map((event,i) =><AllEventsCard showError={this.showError}   makeReservation={this.makeRSVP} key={i} user={user} event={event}/>)
             }
             </div>
-           
-            <Pagination defaultActivePage={active} totalPages={total} />
             </div>
 
           
@@ -92,6 +124,7 @@ function mapStateToProps(state){
         isLoading:state.loading,
         events:state.events,
         user:state.user,
+        message:state.message
     };
 };
 

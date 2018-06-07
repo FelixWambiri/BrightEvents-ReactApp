@@ -1,22 +1,29 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { makeReservation } from '../actions/events';
-import { Card, Image, Icon, Button } from 'semantic-ui-react';
+import { Card, Icon, Button } from 'semantic-ui-react';
 import eventHolder from '../assets/events.png';
 
 const hdate = require('human-date');
 
+let rsvpError;
 export default (props) => {
   const {
-    event, onDelete, user, makeReservation,
+    event, onDelete, user, makeReservation, error, showError
   } = props;
   const loggedin = !!localStorage.getItem('brighteventstoken');
   function handleDelete(id) {
     onDelete(id);
   }
+  const makeRSVP = (id) => {
+    makeReservation(id).catch((error) => {
+      console.log("we are ", error)
+      showError(error.response.data.warning);
+    });
+  };
   function checkAuth(id) {
     if (loggedin) {
-      return (<button className="ui button" onClick={() => makeReservation(id)}>
+      return (<button className="ui button" onClick={() => makeRSVP(id)}>
         <i className="favorite icon" />Attend
       </button>);
     }
@@ -25,6 +32,7 @@ export default (props) => {
   }
   return (
     <Card >
+
       <img src={eventHolder} />
       <Card.Content>
         <Card.Header>
@@ -52,6 +60,7 @@ export default (props) => {
       </Card.Content>
       <Card.Content extra>
         {checkAuth(event.id)}
+
       </Card.Content>
     </Card>
   );

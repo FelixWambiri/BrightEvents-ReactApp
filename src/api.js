@@ -39,7 +39,7 @@ export default{
     // delete: (id) => fetch("DELETE",`${EVENTS_URL}/${id}`, headers).then(res => res.events).catch(error=>console.log("the error is ", error)),
     fetchSingle: id => fetch('GET', `${EVENT_URL}/${id}`, headers).then(res => res.event).catch(error => console.log('the error is ', error)),
     updateEvent: (id, data) => instance.put(`${EVENTS_URL}/${id}`, data),
-    makeReservation: id => instance.post(`/event/${id}/rsvp`).then(res => res.event).catch(error => console.log('the error is ', error)),
+    makeReservation: id => instance.post(`/event/${id}/rsvp`).then(res => res.event), //.catch(error => console.log('the error is ', error)),
     showReservations: id => instance.get(`/event/${id}/rsvp`).then(res => res.data.Attendants).catch(error => console.log('the error is ', error)),
     searchEvents: query => instance.post(`/search?q=${query}`).then(res => res.data.events),// .catch(error => console.log("the error is",error)),
   },

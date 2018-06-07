@@ -1,11 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Message } from 'semantic-ui-react';
 import { logout } from '../../actions/auth';
-
-import { Segment, Grid, Image as ImageComponent, Item, Button } from 'semantic-ui-react';
 import AllEventsPage from './AllEventsPage';
 
 

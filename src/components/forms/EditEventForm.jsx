@@ -1,11 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {Form,Button,Message} from 'semantic-ui-react';
-import InlineError from '../messages/InlineError';
-import {eventValidator} from "../../utils/validator"
+import {Form,Button} from 'semantic-ui-react';
+import {eventValidator} from "../../utils/validator";
 import Loader from '../Loader';
 import moment from 'moment';
-let nameField;
+
 class EditEventForm extends React.Component{
     constructor(props){
         super(props)
@@ -118,6 +116,4 @@ class EditEventForm extends React.Component{
     }
 }
 
-EditEventForm.propTypes = {
-};
 export default EditEventForm;

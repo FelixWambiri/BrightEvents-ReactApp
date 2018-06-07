@@ -43,8 +43,8 @@ class ForgotPasswordForm extends React.Component{
         return(
             <Grid centered styles={styles.root}>
                 <Grid.Column width={8}>
-                    <Segment inverted>
-                        <Form inverted onSubmit={this.onSubmit} loading={loading}>
+                    <Segment>
+                        <Form onSubmit={this.onSubmit} loading={loading}>
                             {errors.Warning && <Message negative>
                             <Message.Header>Something went wrong</Message.Header>
                             <p>{errors.Warning}</p>
