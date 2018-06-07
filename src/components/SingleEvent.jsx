@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Icon } from 'semantic-ui-react';
-import ModalExampleShorthand from '../components/pages/RsvpsModal';
 import eventHolder from '../assets/events.png';
 
 const hdate = require('human-date');

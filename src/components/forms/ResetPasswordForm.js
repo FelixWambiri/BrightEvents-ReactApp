@@ -44,8 +44,8 @@ class ResetPasswordForm extends React.Component{
         return(
             <Grid centered >
                 <Grid.Column width={8}>
-                    <Segment inverted>
-                        <Form inverted onSubmit ={this.onSubmit} loading={loading}>
+                    <Segment >
+                        <Form  onSubmit ={this.onSubmit} loading={loading}>
                             <Form.Field errors={errors?!!errors.password:{}}>
                                 <label htmlFor="password">password</label>
                                 <input 

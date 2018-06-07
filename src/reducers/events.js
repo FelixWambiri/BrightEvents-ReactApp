@@ -9,8 +9,6 @@ export default function events(events = [], action = {}) {
       return action.data;
     case EVENT_DELETED:
       return events.filter(event => event.id !== action.id);
-    case RESERVATION_MADE:
-      return action.data;
     case SEARCH_RESULTS:
       return action.data;
     default:
