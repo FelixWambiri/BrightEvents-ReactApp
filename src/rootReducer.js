@@ -8,6 +8,8 @@ import myEvents from './reducers/my_events.reducer';
 import searching from './reducers/searchLoading.reducer';
 import error from './reducers/error.reducer';
 import message from './reducers/rsvp.reducer';
+import showPassword from './reducers/showPassword.reducer';
+import successMessage from './reducers/successMessage.reducer';
 
 export default combineReducers({
   user,
@@ -19,4 +21,7 @@ export default combineReducers({
   searching,
   loading,
   message,
+  showPassword,
+  successMessage,
 });
+
