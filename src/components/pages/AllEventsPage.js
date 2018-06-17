@@ -10,12 +10,14 @@ import SearchEventForm from '../forms/SearchEventForm';
 import { searchEvents} from '../../actions/events';
 import { Message,Grid,Card,Image, Pagination } from 'semantic-ui-react';
 import FlashMessage from 'react-flash-message';
+import { clearMessage } from '../../actions/auth';
 
 class AllEventsPage extends React.Component{
     constructor(props){
     super(props)
     this.state = {
         message:'',
+        logMessage:'',
         error:'',
         pagination:{
             active:3,
@@ -30,11 +32,17 @@ class AllEventsPage extends React.Component{
     this.makeRSVP = this.makeRSVP.bind(this)
   }
     componentDidMount = () => {
+        console.log("the message is ", this.props.logMessage)
         this.setState({error:'',message:''},()=>this.setState({message:this.props.message}))
+        this.setState({logMessage:''},()=>this.setState({logMessage:this.props.logMessage}))
         this.props.fetchAllEvents().then(()=>{
             this.setState({originalEvents:this.props.events,events:this.props.events})
         }).catch(error=>console.log("the error idf",error));
     }
+    // componentWillUnmount = () => {
+    //     this.props.clearMessage()
+    //   }
+
     makeRSVP(id){
        return this.props.makeReservation(id).then(()=>{
             this.setState({error:'',message:''},()=>this.setState({message:this.props.message}))
@@ -64,7 +72,6 @@ class AllEventsPage extends React.Component{
         
     }
     render(){
-        console.log("the state is now ", this.state)
         const {isLoading,deleteEvent,user,makeReservation, searchEvents} = this.props
         const {events} = this.state
         const {active,total} = this.state.pagination
@@ -94,6 +101,13 @@ class AllEventsPage extends React.Component{
                     {this.state.message}
                     </Message></FlashMessage>
             }
+              {
+                this.state.logMessage && 
+                <FlashMessage duration={3000}>
+                <Message success>
+                    {this.state.logMessage}
+                    </Message></FlashMessage>
+            }
            
             <div className="ui cards">
             {
@@ -117,14 +131,16 @@ AllEventsPage.propTypes ={
 const mapDispatchToProps = dispatch=>({
     fetchAllEvents:()=>dispatch(fetchAllEvents()),
     makeReservation:(id)=>dispatch(makeReservation(id)),
-    searchEvents : (query)=>dispatch(searchEvents(query))
+    searchEvents : (query)=>dispatch(searchEvents(query)),
+    clearMessage:()=>dispatch(clearMessage()),
 })
 function mapStateToProps(state){
     return{
         isLoading:state.loading,
         events:state.events,
         user:state.user,
-        message:state.message
+        message:state.message,
+        logMessage: state.successMessage,
     };
 };
 
