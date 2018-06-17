@@ -6,6 +6,8 @@ import { MY_EVENTS_URL, BASE_URL, EVENTS_URL, EVENT_URL } from './utils/constant
 const headers = localStorage.getItem('brighteventstoken');
 // Create axios instance so as to use interceptors
 const instance = axios.create({
+  baseURL: 'https://bright-events-app.herokuapp.com/api',
+  // baseURL: 'http://127.0.0.1:5000/api',
   headers: {
     Accept: 'application/json',
     ContentType: 'application/json',
