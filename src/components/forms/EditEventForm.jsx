@@ -1,11 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {Form,Button,Message} from 'semantic-ui-react';
-import InlineError from '../messages/InlineError';
-import {eventValidator} from "../../utils/validator"
+import {Form,Button} from 'semantic-ui-react';
+import {eventValidator} from "../../utils/validator";
 import Loader from '../Loader';
 import moment from 'moment';
-let nameField;
+
 class EditEventForm extends React.Component{
     constructor(props){
         super(props)
@@ -47,7 +45,8 @@ class EditEventForm extends React.Component{
     };
     onChange = e =>this.setState({name: e.target.value});
     render (){
-    const {event,loading} = this.props;     
+    const {event,loading} = this.props;
+    console.log("the event is ", )     
     if (loading){
         return <Loader/>
     }
@@ -94,7 +93,7 @@ class EditEventForm extends React.Component{
                             id="date_hosted"
                             name="date_hosted"
                             placeholder="please enter the date_hosted"
-                            Value={this.formattedDate(event.date_hosted)}
+                            Value={moment(event.date_hosted).format(moment.HTML5_FMT.DATE)}
                             ref="date_hosted"
                             onChange={this.onChange}/>
 
@@ -118,6 +117,4 @@ class EditEventForm extends React.Component{
     }
 }
 
-EditEventForm.propTypes = {
-};
 export default EditEventForm;

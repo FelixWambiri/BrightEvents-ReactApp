@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Icon } from 'semantic-ui-react';
-import ModalExampleShorthand from '../components/pages/RsvpsModal';
 import eventHolder from '../assets/events.png';
 
 const hdate = require('human-date');
 
 export default (props) => {
-  const { event, onDelete, showReservations } = props;
+  const {
+ event, onDelete, isOpen, toggleModal, showReservations 
+} = props;
   function handleDelete(id) {
     onDelete(id);
   }
@@ -50,7 +51,9 @@ export default (props) => {
           <div className="ui fluid buttons">
             <Link to={`/events/edit/${event.id}`} className="ui primary icon button"> <i className="edit icon" /> Edit</Link>
             <div className="or" />
-            <button onClick={() => handleDelete(event.id)} className="ui red button"><i className="trash icon" /> Delete</button>
+            <button onClick={() => { toggleModal(event.id); }} className="ui red button"><i className="trash icon" /> Delete</button>
+
+
           </div>
         </div>
       </Card.Content>

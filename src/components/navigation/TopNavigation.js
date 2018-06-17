@@ -1,5 +1,5 @@
 import React from 'react';
-import {Menu, Divider } from 'semantic-ui-react';
+import {Menu} from 'semantic-ui-react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {logout} from '../../actions/auth'; 

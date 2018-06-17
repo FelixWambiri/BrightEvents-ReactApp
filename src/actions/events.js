@@ -78,11 +78,9 @@ export const fetchAllEvents = () => (dispatch) => {
 
 export const deleteEvent = id => dispatch => api.events.delete(id).then(() => dispatch(eventDeleted(id))).catch(error => dispatch(requestFailed(error.message)));
 
-export const makeReservation = id => (dispatch) => {
-  dispatch(requestStarted());
-  return api.events.makeReservation(id).then(event => dispatch(reservationMade(id))).catch(error => dispatch(requestFailed('oh hnoodfas')));
-};
-
+export const makeReservation = id => dispatch =>
+//   dispatch(requestStarted());
+  api.events.makeReservation(id).then(event => dispatch(reservationMade("You've made a reservation successfully")));
 export const showReservations = id => (dispatch) => {
   dispatch(requestStarted());
   return api.events.showReservations(id).then(event => dispatch(reservationMadeDisplayed(event))).catch(error => dispatch(requestFailed('oh hnoodfas')));

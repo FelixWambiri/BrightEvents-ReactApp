@@ -11,7 +11,9 @@ class ResetPasswordForm extends React.Component{
             passwordConfirmation: ''
         },
         loading : false,
-        errors : {} 
+        errors : {}, 
+        showPassword:false,
+        showConfirmPass:false,
     };
 
     componentDidMount = () => {
@@ -44,27 +46,32 @@ class ResetPasswordForm extends React.Component{
         return(
             <Grid centered >
                 <Grid.Column width={8}>
-                    <Segment inverted>
-                        <Form inverted onSubmit ={this.onSubmit} loading={loading}>
-                            <Form.Field errors={errors?!!errors.password:{}}>
-                                <label htmlFor="password">password</label>
-                                <input 
-                                    type="password" 
+                    <Segment >
+                        <Form  onSubmit ={this.onSubmit} loading={loading}>
+                            <Form.Field error={!!errors.password}>
+                            <label htmlFor="password">password</label>
+                                <div class="ui  icon input">
+                                    <input type={`${this.state.showPassword?'text':'password'}`}
                                     id="password"
                                     name="password"
-                                    placeholder="enter your password"
+                                    placeholder="Make it secure"
                                     value={data.password}
                                     onChange={this.onChange}/>
+                                    {errors.password && <InlineError text={errors.password} />}
+                                    <i className={`${this.state.showPassword?'hide':'unhide'} icon link`} onClick={()=>this.setState({showPassword:!this.state.showPassword})}></i>
+                                </div>
                             </Form.Field>
                             <Form.Field errors={errors?!!errors.passwordConfirmation:{}}>
                                 <label htmlFor="passwordConfirmation">password</label>
-                                <input 
-                                    type="password" 
+                                <div class="ui  icon input">
+                                <input type={`${this.state.showConfirmPassword?'text':'password'}`} 
                                     id="password"
                                     name="passwordConfirmation"
                                     placeholder="type it again"
                                     value={data.passwordConfirmation}
                                     onChange={this.onChange}/>
+                                    <i className={`${this.state.showConfirmPassword?'hide':'unhide'} icon link`} onClick={()=>this.setState({showConfirmPassword:!this.state.showConfirmPassword})}></i>
+                                </div>
                             </Form.Field>
                             <Button primary>Reset</Button>
                         </Form>
