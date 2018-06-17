@@ -11,7 +11,8 @@ class LoginForm extends React.Component{
             password:''
         },
         loading:false,
-        errors:{}
+        errors:{},
+        showPassword:false
     };
     onChange = e =>
         this.setState({data: { ...this.state.data,[e.target.name]: e.target.value } }); 
@@ -62,6 +63,19 @@ class LoginForm extends React.Component{
                                 {errors.email && <InlineError text={errors.email} />}
                             </Form.Field>
                             <Form.Field error={!!errors.password}>
+                            <label htmlFor="password">password</label>
+                                <div class="ui  icon input">
+                                    <input type={`${this.state.showPassword?'text':'password'}`}
+                                    id="password"
+                                    name="password"
+                                    placeholder="Make it secure"
+                                    value={data.password}
+                                    onChange={this.onChange}/>
+                                    {errors.password && <InlineError text={errors.password} />}
+                                    <i className={`${this.state.showPassword?'hide':'unhide'} icon link`} onClick={()=>this.setState({showPassword:!this.state.showPassword})}></i>
+                                </div>
+                            </Form.Field>
+                        {/* <Form.Field error={!!errors.password}>
                                 <label htmlFor="password">password</label>
                                 <input 
                                 type="password" 
@@ -71,7 +85,7 @@ class LoginForm extends React.Component{
                                 value={data.password}
                                 onChange={this.onChange}/>
                                 {errors.password && <InlineError text={errors.password} />}
-                            </Form.Field>
+                            </Form.Field> */}
                             {!!errors.login && <Message negative>
                             <Message.Header>{errors.login}</Message.Header>
                             <p>{errors.message}</p>
