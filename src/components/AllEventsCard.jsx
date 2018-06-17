@@ -17,7 +17,6 @@ export default (props) => {
   }
   const makeRSVP = (id) => {
     makeReservation(id).catch((error) => {
-      console.log("we are ", error)
       showError(error.response.data.warning);
     });
   };
