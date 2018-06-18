@@ -6,7 +6,7 @@ import { MY_EVENTS_URL, BASE_URL, EVENTS_URL, EVENT_URL } from './utils/constant
 const headers = localStorage.getItem('brighteventstoken');
 // Create axios instance so as to use interceptors
 const instance = axios.create({
-  baseURL: 'https://bright-events-app.herokuapp.com/api',
+  baseURL: 'https://bright-event-api.herokuapp.com/api',
   // baseURL: 'http://127.0.0.1:5000/api',
   headers: {
     Accept: 'application/json',
@@ -29,8 +29,8 @@ export default{
     login: credentials => instance.post('/auth/login', credentials),
     signup: user => instance.post('/auth/register', user).then(res => res.data.user),
     resetPasswordRequest: email => instance.post('auth/acquire_token', email),
-    validateToken: token => instance.get(`http:/\/localhost:5000/api/auth/confirm/${token}`).then(resp => console.log(resp)),
-    resetPassword: data => instance.put('http://localhost:5000/api/auth/reset_password', data),
+    validateToken: token => instance.get(`http:/\/bright-event-api.herokuapp.com/api/auth/confirm/${token}`).then(resp => console.log(resp)),
+    resetPassword: data => instance.put('https://bright-event-api.herokuapp.com/api/auth/reset_password', data),
     addEvent: data => instance.post('/events', data),
   },
   events: {
